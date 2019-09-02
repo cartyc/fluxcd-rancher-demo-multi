@@ -1,3 +1,5 @@
 bases:
   - ./common/
   - ./team1/
+  - ./rancher/
+  - ./rancher/
