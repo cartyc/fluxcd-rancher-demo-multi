@@ -1,3 +1,16 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: Role
+metadata:
+  name: flux
+rules:
+  - apiGroups:
+      - '*'
+    resources:
+      - '*'
+    verbs:
+      - '*'
+---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
 metadata:
@@ -8,5 +21,5 @@ roleRef:
   name: flux
 subjects:
   - name: flux
-    namespace: rancher
+    namespace: "flux-system"
     kind: ServiceAccount
