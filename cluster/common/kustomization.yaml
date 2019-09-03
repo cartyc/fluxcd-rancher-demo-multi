@@ -1,4 +1,16 @@
 resources:
   - crds.yaml
+  - patch.yaml
+  - repositories.yaml
+bases:
+ - github.com/fluxcd/helm-operator//deploy
+secretGenerator:
+  - name: helm-repositories
+    files:
+      - repositories.yaml
+patchesStrategicMerge:
+  - patch.yaml
+namespace: flux-system
+
 
 
