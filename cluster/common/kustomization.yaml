@@ -1,7 +1,6 @@
+namespace: flux-system
 resources:
   - crds.yaml
-  - patch.yaml
-  - repositories.yaml
 bases:
  - github.com/fluxcd/helm-operator//deploy
 secretGenerator:
@@ -10,7 +9,6 @@ secretGenerator:
       - repositories.yaml
 patchesStrategicMerge:
   - patch.yaml
-namespace: flux-system
 
 
 
