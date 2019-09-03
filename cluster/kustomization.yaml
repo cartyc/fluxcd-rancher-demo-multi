@@ -1,5 +1,5 @@
 bases:
-  - ./common/
+  # - ./common/
   - ./helm-release/
   - ./team1/
   - ./rancher/
