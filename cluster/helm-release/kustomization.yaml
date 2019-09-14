@@ -1,6 +1,8 @@
 namespace: flux-system
-bases:
- - github.com/fluxcd/helm-operator/tree/helm-v3//deploy
+resources:
+  - release-crd.yaml
+  - operator-account.yaml
+  - operator-deployment.yaml
 secretGenerator:
   - name: helm-repositories
     files:
