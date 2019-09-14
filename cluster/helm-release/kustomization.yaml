@@ -1,6 +1,6 @@
 namespace: flux-system
 bases:
- - github.com/fluxcd/helm-operator//deploy
+ - github.com/fluxcd/helm-operator/tree/helm-v3//deploy
 secretGenerator:
   - name: helm-repositories
     files:
