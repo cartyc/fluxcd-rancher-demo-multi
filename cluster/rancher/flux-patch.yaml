@@ -14,7 +14,7 @@ spec:
             - --git-poll-interval=2m
             - --sync-interval=5m
             - --ssh-keygen-dir=/var/fluxd/keygen
-            - --k8s-allow-namespace=default
+            - --k8s-allow-namespace=rancher
             - --git-path=harbor,rancher-ha
             - --git-url=git@github.com:cartyc/rancher-flux-demo.git
             - --git-branch=master
