@@ -12,3 +12,6 @@ repositories:
 - name: rancher-stable
   url: https://releases.rancher.com/server-charts/stable
   cache: /var/fluxd/helm/repository/cache/rancher-stable-index.yaml
+- name: jetstack
+  url: https://charts.jetstack.io
+  cache: /var/fluxd/helm/repository/cache/jetstack-stable-index.yaml
