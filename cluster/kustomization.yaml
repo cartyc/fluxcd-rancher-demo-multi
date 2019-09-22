@@ -1,5 +1,5 @@
 bases:
-  # - ./common/
   - ./helm-release/
-  - ./team1/
-  - ./rancher/
+  - ./rancher/  
+  - ./gatekeeper
+  - /.linkerd
