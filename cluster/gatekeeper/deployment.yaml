@@ -4,6 +4,9 @@ metadata:
   name: gatekeeper-system
   labels:
     control-plane: controller-manager
+  annotations:
+    linkerd.io/inject: enabled
+
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
