@@ -2,4 +2,4 @@ bases:
   - ./helm-release/
   - ./rancher/  
   - ./gatekeeper
-  - /.linkerd
+  - ./linkerd
