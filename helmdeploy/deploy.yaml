@@ -191,11 +191,13 @@ spec:
         # include this if you want to restrict the manifests considered by flux
         # to those under the following relative paths in the git repository
         # - --git-path=subdir1,subdir2
-        - --git-path=Helmrelease,harbor
+        - --git-path=Helmrelease,harbor,rancher-ha
         - --git-label=flux
         - --git-user=Flux
         - --git-email=chris.carty@gmail.com
         - --manifest-generation=true
+        - --git-poll-interval=2m
+        - --sync-interval=2m        
         # Include these two to enable git commit signing
         # - --git-gpg-key-import=/root/gpg-import
         # - --git-signing-key=<key id>
