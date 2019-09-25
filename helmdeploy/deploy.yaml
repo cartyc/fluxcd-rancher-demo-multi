@@ -1,9 +1,14 @@
 ---
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: helm-deploy
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: memcached
-  namespace: test2
+  namespace: helm-deploy
 spec:
   ports:
     - name: memcached
@@ -19,7 +24,7 @@ metadata:
   labels:
     name: flux
   name: flux
-  namespace: test2
+  namespace: helm-deploy
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
@@ -47,13 +52,13 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: flux
-    namespace: test2
+    namespace: helm-deploy
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flux
-  namespace: test2
+  namespace: helm-deploy
 spec:
   replicas: 1
   selector:
@@ -93,7 +98,7 @@ spec:
 
       # The following volume is for using a customised .kube/config,
       # which you will need to do if you wish to have a different
-      # test2 namespace. You will also need to provide the configmap
+      # helm-deploy namespace. You will also need to provide the configmap
       # with an entry for `config`, and uncomment the volumeMount and
       # env entries below.
       # - name: kubeconfig
@@ -107,7 +112,7 @@ spec:
       # - name: gpg-keys
       #   secret:
       #     secretName: flux-gpg-keys
-      #     test2Mode: 0400
+      #     helm-deployMode: 0400
 
       containers:
       - name: flux
@@ -170,7 +175,7 @@ spec:
         # If you deployed memcached in a different namespace to flux,
         # or with a different service name, you can supply these
         # following two arguments to tell fluxd how to connect to it.
-        # - --memcached-hostname=memcached.test2.svc.cluster.local
+        # - --memcached-hostname=memcached.helm-deploy.svc.cluster.local
 
         # Use the memcached ClusterIP service name by setting the
         # memcached-service to string empty
@@ -186,11 +191,11 @@ spec:
         # include this if you want to restrict the manifests considered by flux
         # to those under the following relative paths in the git repository
         # - --git-path=subdir1,subdir2
-        - --git-path=harbor
+        - --git-path=Helmrelease,harbor
         - --git-label=flux
         - --git-user=Flux
         - --git-email=chris.carty@gmail.com
-
+        - --manifest-generation=true
         # Include these two to enable git commit signing
         # - --git-gpg-key-import=/root/gpg-import
         # - --git-signing-key=<key id>
@@ -198,10 +203,10 @@ spec:
         # Include this to enable git signature verification
         # - --git-verify-signatures
 
-        # Tell flux it has readonly access to the repo (test2 `false`)
+        # Tell flux it has readonly access to the repo (helm-deploy `false`)
         # - --git-readonly
 
-        # Instruct flux where to put sync bookkeeping (test2 "git", meaning use a tag in the upstream git repo)
+        # Instruct flux where to put sync bookkeeping (helm-deploy "git", meaning use a tag in the upstream git repo)
         # - --sync-state=git
 
         # Include these next two to connect to an "upstream" service
@@ -225,7 +230,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: flux-git-deploy
-  namespace: test2
+  namespace: helm-deploy
 type: Opaque
 ---
 # memcached deployment used by Flux to cache
@@ -234,7 +239,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: memcached
-  namespace: test2
+  namespace: helm-deploy
 spec:
   replicas: 1
   selector:
@@ -252,7 +257,7 @@ spec:
         args:
         - -m 512   # Maximum memory to use, in megabytes
         - -I 5m    # Maximum size for one item
-        - -p 11211 # test2 port
+        - -p 11211 # helm-deploy port
         # - -vv    # Uncomment to get logs of each request and response.
         ports:
         - name: clients
